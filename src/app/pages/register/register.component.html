@@ -1,0 +1,63 @@
+<div class="container vh-100 d-flex align-items-center justify-content-center ">
+    <div class="row shadow-lg rounded-4 overflow-hidden w-100" style="max-width: 900px">
+      
+     
+  
+      <div class="col-md-7 bg-white p-5">
+        <div class="text-center mb-4">
+          <h2 class="fw-bold">Create Account</h2>
+          <p class="text-muted">Join our E-Book community</p>
+        </div>
+  
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
+            <div class="mb-3">
+                <label>Name</label>
+                <input type="text" class="form-control" formControlName="name" placeholder="Enter your Name" />
+                <div class="text-danger" *ngIf="registerForm.get('name')?.invalid && registerForm.get('name')?.touched">
+                  Valid Name is required.
+                </div>
+              </div>
+
+
+          <div class="mb-3">
+            <label>Email</label>
+            <input type="email" class="form-control" formControlName="email" placeholder="Enter your email" />
+            <div class="text-danger" *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+              Valid email is required.
+            </div>
+          </div>
+  
+          <div class="mb-3">
+            <label>Password</label>
+            <input type="password" class="form-control" formControlName="password" placeholder="Enter password" />
+            <div class="text-danger" *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+              Minimum 6 characters.
+            </div>
+          </div>
+  
+          <div class="mb-3">
+            <label>Confirm Password</label>
+            <input type="password" class="form-control" formControlName="confirmPassword" placeholder="Confirm password" />
+            <div class="text-danger" *ngIf="registerForm.hasError('mismatch') && registerForm.get('confirmPassword')?.touched">
+              Passwords do not match.
+            </div>
+          </div>
+  
+          <button type="submit" class="btn btn-success w-100 mt-3" [disabled]="registerForm.invalid">Sign Up</button>
+        </form>
+  
+        <div class="mt-4 text-center">
+          <small class="text-muted">Already have an account? 
+            <a [routerLink]="['/login']" class="text-decoration-none">Log in here</a>
+
+          </small>
+        </div>
+      </div>
+
+      <div class="col-md-5 p-0 d-none d-md-block">
+        <img src="assets/ebook4.jpg" alt="E-book image" class="img-fluid h-100 w-100" style="object-fit: cover;">
+      </div>
+    </div>
+  </div>
+  

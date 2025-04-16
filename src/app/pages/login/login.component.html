@@ -1,0 +1,45 @@
+<div class="container vh-100 d-flex align-items-center justify-content-center ">
+    <div class="row shadow-lg rounded-4 overflow-hidden w-100 main">
+      <div class="col-md-5 p-0 d-none d-md-block">
+        <img src="assets/ebook4.jpg" alt="E-book image" class="img-new h-100 w-100">
+      </div>
+  
+      <div class="col-md-7 bg-white p-5">
+        <div class="text-center mb-4">
+          <h2 class="fw-bold">Welcome to E-Book</h2>
+          <p class="text-muted">Sign in to continue</p>
+        </div>
+  
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+           
+
+          <div class="mb-3">
+            <label>Email</label>
+            <input type="email" class="form-control" formControlName="email" placeholder="Enter your email" />
+            <div class="text-danger" *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+              Valid email is required.
+            </div>
+          </div>
+  
+          <div class="mb-3">
+            <label>Password</label>
+            <input type="password" class="form-control" formControlName="password" placeholder="Enter your password" />
+            <div class="text-danger" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+              Password must be at least 6 characters.
+            </div>
+          </div>
+  
+          <button type="submit" class="btn btn-primary w-100 mt-3" [disabled]="loginForm.invalid">Login</button>
+        </form>
+  
+       
+        <div class="mt-4 text-center">
+            <small class="text-muted">Don't have an account?
+              <a [routerLink]="['/signup']" class="text-decoration-none">Sign up</a>
+  
+            </small>
+          </div>
+      </div>
+    </div>
+  </div>
+  
