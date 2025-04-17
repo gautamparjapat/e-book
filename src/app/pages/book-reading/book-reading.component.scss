@@ -1,0 +1,27 @@
+.reader-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 1rem;
+  }
+  
+  .line {
+    padding: 10px;
+    margin-bottom: 8px;
+    border-left: 4px solid transparent;
+    background-color: #f9f9f9;
+    transition: 0.3s;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  .line:hover {
+    background-color: #eef6ff;
+  }
+  
+  .line.read {
+    background-color: #e6ffe6;
+    border-left-color: #28a745;
+    font-style: italic;
+    color: #256029;
+  }
+  

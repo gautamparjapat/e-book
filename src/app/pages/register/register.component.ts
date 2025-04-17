@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { AuthService } from '../../common-service/auth.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -12,8 +14,14 @@ import { RouterModule } from '@angular/router';
 })
 export class RegisterComponent {
   registerForm: FormGroup;
+  message: String = '';
+  error: String = '';
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router
+  ) {
     this.registerForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(2)]],
       email: ['', [Validators.required, Validators.email]],
@@ -30,10 +38,23 @@ export class RegisterComponent {
   onSubmit() {
     if (this.registerForm.valid) {
       const formData = this.registerForm.value;
-      console.log('Registered data:', formData);
-      localStorage.setItem('registeredUser', JSON.stringify(formData));
+
+      const result = this.authService.register(formData);
+    if (result.success) {
+      this.message = result.message!;
+      this.error = '';
+      setTimeout(() => this.router.navigate(['/login']), 1500);
+    } else {
+      this.error = result.message!;
+      this.message = '';
+    }
+
     } else {
       this.registerForm.markAllAsTouched();
     }
+  }
+
+  onRegister() {
+    
   }
 }

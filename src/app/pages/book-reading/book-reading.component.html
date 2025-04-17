@@ -1,0 +1,27 @@
+<div class="reader-container">
+    <h2>{{ book?.title }}</h2>
+    <h5>Page {{ currentPage + 1 }} of {{ book?.totalPages }}</h5>
+  
+    <div *ngIf="book?.content?.[currentPage] as lines; else loading">
+      <div *ngFor="let line of lines; let i = index"
+           class="line"
+           [class.read]="isLineRead(currentPage, i)"
+           (click)="markLineAsRead(currentPage, i)">
+        {{ line }}
+      </div>
+    </div>
+  
+    <ng-template #loading>
+      <p>Loading content...</p>
+    </ng-template>
+  
+    <div class="mt-4">
+      <button class="btn btn-outline-primary me-2" (click)="prevPage()" [disabled]="currentPage === 0">
+        Previous
+      </button>
+      <button class="btn btn-outline-primary" (click)="nextPage()" [disabled]="currentPage >= book?.content?.length - 1">
+        Next
+      </button>
+    </div>
+  </div>
+  

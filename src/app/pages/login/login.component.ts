@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { RouterModule } from '@angular/router'; 
-
+import { RouterModule } from '@angular/router';
+import { AuthService } from '../../common-service/auth.service'; 
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -14,8 +15,14 @@ export class LoginComponent {
 
 
   loginForm: FormGroup;
+  message: String = '';
+  error: String = '';
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private auth: AuthService,
+    private router: Router
+  ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
@@ -25,9 +32,13 @@ export class LoginComponent {
   onSubmit() {
     if (this.loginForm.valid) {
       const formData = this.loginForm.value;
-      console.log('Login data:', formData);
 
-      localStorage.setItem('loginData', JSON.stringify(formData));
+      const result = this.auth.login(formData);
+    if (result.success) {
+      this.router.navigate(['/dashboard']);
+    } else {
+      this.error = result.message!;
+    }
     } else {
       this.loginForm.markAllAsTouched();
     }
